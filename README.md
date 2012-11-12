@@ -1,4 +1,4 @@
 MineCart
 ========
 
-A by-need/want-data-miner. 
+A by need/want data-miner. 
