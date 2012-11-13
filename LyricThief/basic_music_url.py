@@ -30,5 +30,8 @@ class BasicMusicUrl(Url):
         except ValueError as e:
             print "Error:", e, '\nUrl (most likely) not built correctly.'
             exit()
+        except urllib2.HTTPError as e:
+            print "Error: Song not found"
+            exit()
 
         return response.read()

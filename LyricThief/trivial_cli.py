@@ -13,15 +13,11 @@ sys.path.append('./Helpers')
 from source_lyric_depot import SourceLyricDepot
 
 artist = raw_input('Artist Name (e.g. Pink floyd): ')
-
 song = raw_input('Song Name: ')
 
 a = SourceLyricDepot(artist, song)
-
-url = a.build_url()
-
+a.build_url()
 lyrics = a.get_lyrics()
-
 potential_file_name = artist.replace(' ', '_') + '-' + song.replace(' ', '_') + '.txt'
 
 print lyrics
