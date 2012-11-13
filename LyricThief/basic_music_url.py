@@ -5,11 +5,12 @@
 # 
 # 
 
-import url
+from url import Url
+import urllib2
 
-class BasicMusicUrl(url.Url):
-    def __init__(self, base='', separator='-', extension='.html', artist='', song=''):
-        url.Url.__init__(self)
+class BasicMusicUrl(Url):
+    def __init__(self, base, artist, song, separator='-', extension='.html'):
+        Url.__init__(self)
 
         self.base = base
         self.separator = separator
@@ -17,4 +18,17 @@ class BasicMusicUrl(url.Url):
         self.artist = artist.lower()
         self.song = song.lower()
 
+    def build_url(self):
+        raise NotImplementedError('Still must implement build_url')
 
+    def get_lyrics(self):
+        raise NotImplementedError('Must have a lyric getter')
+
+    def get_address_source(self):
+        try:
+            response = urllib2.urlopen(self.address)
+        except ValueError as e:
+            print "Error:", e, '\nUrl (most likely) not built correctly.'
+            exit()
+
+        return response.read()
