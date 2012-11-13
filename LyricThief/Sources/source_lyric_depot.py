@@ -7,9 +7,10 @@
 
 import sys
 
-sys.path.append('..')
+sys.path += ['..', '../Helpers']
 
 from basic_music_url import BasicMusicUrl
+from html_helper import HtmlHelper
 
 class SourceLyricDepot(BasicMusicUrl):
     def __init__(self, artist, song):
@@ -20,10 +21,13 @@ class SourceLyricDepot(BasicMusicUrl):
                        self.song.replace(' ', '-') + self.extension)
 
     def get_lyrics(self):
-        pass
+        source = self.get_address_source()
+        source = source[source.index('ringmatch')+18:]
+        return HtmlHelper.breaks_to_nl(source[10:source.index('ringmatch')-37])
+        
 
 a = SourceLyricDepot('Counting Crows', 'Mr Jones')
 
-#a.build_url()
+a.build_url()
 
-print a.get_address_source()
+print a.get_lyrics()
