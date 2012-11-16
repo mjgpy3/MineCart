@@ -39,7 +39,6 @@ class LyricWindow(GladeWindow):
         
         menu_bar.append(file_tab)
         self.window.show()
-        
 
     def file_activated(self, sender, name):
         if name == '_Exit':
