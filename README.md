@@ -15,7 +15,12 @@ Features:
  - Ability to save lyrics as a txt file
 
 To run: 
- - Navigate to '/MineCart/Windowing/'
- - Run the file 'lyric\_thief\_widow.py'
+ - Navigate to `/MineCart/Windowing/`
+ - Run the file `lyric\_thief\_widow.py`
+
+TODO:
+ - Make a filter in `basic\_music\_url.py` to remove URL nonsense (e.g. '.', '?', ''')...
+ - Add batch job ability
+ - After batch job is added, add miner for lists of songs per album
 
 <hr>
