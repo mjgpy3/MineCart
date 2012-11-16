@@ -7,7 +7,7 @@ Build in Python as a pet-project.
 
 Components:
 
-LyricThief:
+**LyricThief**:
 Uses various sources (each needs a URL builder and a lyric parser) to mine lyrics from the web.
 
 To run at the moment: 
