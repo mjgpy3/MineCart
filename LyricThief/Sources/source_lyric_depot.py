@@ -24,7 +24,7 @@ class SourceLyricDepot(BasicMusicUrl):
     def get_lyrics(self):
         source = self.get_address_source()
         source = source[source.index('ringmatch')+18:]
-        return HtmlHelper.breaks_to_nl(source[10:source.index('ringmatch')-37])
+        return HtmlHelper.breaks_to_nl(source[10:source.index('ringmatch')-37]).strip()
         
 if __name__ == '__main__':
     a = SourceLyricDepot('Counting Crows', 'Mr Jones')
