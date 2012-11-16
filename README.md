@@ -20,6 +20,9 @@ To run:
 
 TODO:
  - Make a filter in `basic\_music\_url.py` to remove URL nonsense (e.g. '.', '?', ''')...
+ - Add more sources
+ - Add a proxy for sources
+ - Tie combo box to proxy for sources
  - Add batch job ability
  - After batch job is added, add miner for lists of songs per album
 
