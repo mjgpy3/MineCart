@@ -13,3 +13,5 @@ Uses various sources (each needs a URL builder and a lyric parser) to mine lyric
 To run at the moment: 
  - Navigate to '/MineCart/Windowing/'
  - Run the file 'lyric\_thief\_widow.py'
+
+<hr>
