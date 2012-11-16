@@ -16,6 +16,7 @@ sys.path.append('../LyricThief/Helpers/')
 from glade_window import GladeWindow
 from lyric_window import LyricWindow
 from source_lyric_depot import SourceLyricDepot
+from title_helper import TitleHelper
 
 
 class LyricThiefWindow(GladeWindow):
@@ -29,9 +30,10 @@ class LyricThiefWindow(GladeWindow):
 
     def get_clicked(self, sender):
         if not self.fields_empty():
-            lyric_window = LyricWindow()
+            artist, song = self.ent_artist.get_text(), self.ent_song.get_text()
+            lyric_window = LyricWindow(TitleHelper.capitalize_music(artist +' - ' + song))
             text_buffer = gtk.TextBuffer()
-            source = SourceLyricDepot(self.ent_artist.get_text(), self.ent_song.get_text())
+            source = SourceLyricDepot(artist, song)
             source.build_url()
 
             text_buffer.set_text(source.get_lyrics())

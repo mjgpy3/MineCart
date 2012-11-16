@@ -12,21 +12,22 @@ import gtk
 from glade_window import GladeWindow
 
 class LyricWindow(GladeWindow):
-    def __init__(self): 
+    def __init__(self, title): 
         GladeWindow.__init__(self, './GladeFiles/LyricWindow.glade')
         self.output_file = None
     
         self.tvi_lyrics = self.w_tree.get_widget('tviLyrics')
         self.window = self.connect_widget_by_name('wdwMain', 'destroy', lambda x: gtk.main_quit())
+        self.window.set_title(title)
 
         menu_bar = self.w_tree.get_widget('menBar')
 
-        file_tab = gtk.MenuItem('File')
+        file_tab = gtk.MenuItem('_File')
         file_tab.show()
 
         sub_menu = gtk.Menu()
 
-        for option_name in ['Save', 'Save As', 'Exit']:
+        for option_name in ['_Save', 'Save _As', '_Exit']:
             item = gtk.MenuItem(option_name)
             sub_menu.append(item)
             item.connect('activate', self.file_activated, option_name)
@@ -41,14 +42,14 @@ class LyricWindow(GladeWindow):
 
     def file_activated(self, sender, name):
         print "In file_activated: ", name
-        if name == 'Exit':
+        if name == '_Exit':
             gtk.main_quit()
             self.window.hide()
-        elif name == "Save" and self.output_file == None:
+        elif name == "_Save" and self.output_file == None:
             self.save_as(sender)
-        elif name == "Save" and self.output_file:
+        elif name == "_Save" and self.output_file:
             self.save_existing(sender)
-        elif name == "Save As":
+        elif name == "Save _As":
             self.save_as(sender)
 
     def save_existing(self, sender):
