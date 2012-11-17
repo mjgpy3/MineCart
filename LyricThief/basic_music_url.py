@@ -7,6 +7,10 @@
 
 from url import Url
 import urllib2
+import sys
+sys.path.append('./Helpers')
+
+from url_helper import UrlHelper
 
 class BasicMusicUrl(Url):
     def __init__(self, base, artist, song, separator='-', extension='.html'):
@@ -15,8 +19,8 @@ class BasicMusicUrl(Url):
         self.base = base
         self.separator = separator
         self.extension = extension
-        self.artist = artist.lower()
-        self.song = song.lower()
+        self.artist = UrlHelper.remove_url_nonesense(artist.lower())
+        self.song = UrlHelper.remove_url_nonesense(song.lower())
 
     def build_url(self):
         raise NotImplementedError('Still must implement build_url')

@@ -24,7 +24,6 @@ To run:
  - Run the file `lyric\_thief\_widow.py`
 
 TODO:
- - Make a filter in `basic\_music\_url.py` to remove URL nonsense (e.g. '.', '?', ''')...
  - Add more sources
  - Add batch job ability
  - After batch job is added, add miner for lists of songs per album
