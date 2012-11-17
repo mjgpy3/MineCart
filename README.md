@@ -12,6 +12,7 @@ Features:
  - Finds and views lyrics by artist and song name
  - Ability to save lyrics as a txt file
  - Can use a remedial CLI interface or a spiffy GUI
+ - Multiple sources can be selected using the GUI
 
 Installation:
  - _linux_ - Should work on most modern Linux distros without installing new software. If not,
@@ -24,10 +25,7 @@ To run:
 
 TODO:
  - Make a filter in `basic\_music\_url.py` to remove URL nonsense (e.g. '.', '?', ''')...
- - Make not crash unexpectedly
  - Add more sources
- - Add a proxy for sources
- - Tie combo box to proxy for sources
  - Add batch job ability
  - After batch job is added, add miner for lists of songs per album
 
