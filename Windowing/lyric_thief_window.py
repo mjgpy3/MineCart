@@ -39,7 +39,7 @@ class LyricThiefWindow(GladeWindow):
             self.cmb_source.append_text(source)
 
     def change_current_source(self, sender):
-        if sender.get_active != 0:
+        if sender.get_active() != 0:
             self.current_source = sender.get_active_text()
         else:
             self.current_source = None
@@ -47,19 +47,34 @@ class LyricThiefWindow(GladeWindow):
     def get_clicked(self, sender):
         if not self.fields_empty():
             artist, song = self.ent_artist.get_text(), self.ent_song.get_text()
-            lyric_window = LyricWindow(TitleHelper.capitalize_music(artist +' - ' + song))
-            text_buffer = gtk.TextBuffer()
-            if self.current_source:
-                source = self.source_builder.build_from_source(self.current_source ,artist, song)
-            source.build_url()
+            source_found = False
+            lyrics = ''
 
-            text_buffer.set_text(source.get_lyrics())
-            lyric_window.tvi_lyrics.set_buffer(text_buffer)
-            self.window.hide()
-            lyric_window.window.show()
-            gtk.main()
-            self.window.show()
+            source_names = self.source_builder.get_names() if self.current_source==None else [self.current_source] 
+            print "Trying", source_names
+            for source_name in source_names:
+                try:
+                    source = self.source_builder.build_from_source(source_name, artist, song)
+                    source.build_url()
+                    lyrics = source.get_lyrics()
+                    source_found = True
+                    break
+                except:
+                    print source_name, "failed"
 
+            if source_found:
+                self.run_lyric_window(lyrics, artist, song)
+
+    def run_lyric_window(self, lyrics, artist, song):
+        text_buffer = gtk.TextBuffer()
+        lyric_window = LyricWindow(TitleHelper.capitalize_music(artist +' - ' + song))
+        text_buffer.set_text(lyrics)
+        lyric_window.tvi_lyrics.set_buffer(text_buffer)
+        self.window.hide()
+        lyric_window.window.show()
+        gtk.main()
+        self.window.show()
+        
     def save_clicked(self, sender):
         print "Clicked save"
 

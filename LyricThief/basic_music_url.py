@@ -28,10 +28,10 @@ class BasicMusicUrl(Url):
         try:
             response = urllib2.urlopen(self.address)
         except ValueError as e:
-            print "Error:", e, '\nUrl (most likely) not built correctly.'
-            exit()
+            raise Exception("Error:" + str(e) + '\nUrl (most likely) not built correctly.')
         except urllib2.HTTPError as e:
-            print "Error: Song not found"
-            exit()
+            raise Exception('Urlllib Error.')
+        except Exception:
+            raise Exception('Unheard of exception occured')
 
         return response.read()
