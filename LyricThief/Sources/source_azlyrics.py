@@ -22,7 +22,7 @@ class SourceAzlyrics(BasicMusicUrl):
 
     def get_lyrics(self):
         source = self.get_address_source()
-        source = source[source.index('<!-- start of lyrics -->')+22:]
+        source = source[source.index('<!-- start of lyrics -->')+16:]
         return HtmlHelper.breaks_to_nl(source[10:source.index('<!-- end of lyrics -->')]).strip().replace('\n\n', '\n')
         
 if __name__ == '__main__':
