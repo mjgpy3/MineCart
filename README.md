@@ -21,10 +21,9 @@ Installation:
 
 To run: 
  - Navigate to `/MineCart/Windowing/`
- - Run the file `lyric\_thief\_widow.py`
+ - Run the file `lyric_thief_widow.py`
 
 TODO:
- - Add more sources
  - Add batch job ability
  - After batch job is added, add miner for lists of songs per album
 
