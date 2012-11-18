@@ -32,8 +32,11 @@ class LyricThiefWindow(GladeWindow):
         self.ent_artist = self.w_tree.get_widget('entArtist')
         self.ent_song = self.w_tree.get_widget('entSong')
         self.cmb_source = self.connect_widget_by_name('cmbSource', 'changed', self.change_current_source)
+        self.result_buffer = gtk.TextBuffer()
 
         self.cmb_source.set_active(0)
+        self.w_tree.get_widget('txtResults').set_buffer(self.result_buffer)
+        self.result_buffer.set_text('')
 
         for source in self.source_builder.get_names():
             self.cmb_source.append_text(source)
@@ -44,26 +47,32 @@ class LyricThiefWindow(GladeWindow):
         else:
             self.current_source = None
 
+    def append_to_result(self, text):
+        self.result_buffer.insert(self.result_buffer.get_end_iter(), text)
+
     def get_clicked(self, sender):
         if not self.fields_empty():
+            self.result_buffer.set_text('')
             artist, song = self.ent_artist.get_text(), self.ent_song.get_text()
-            source_found = False
+            source_found = None
             lyrics = ''
 
             source_names = self.source_builder.get_names() if self.current_source==None else [self.current_source] 
-            print "Trying", source_names
             for source_name in source_names:
                 try:
                     source = self.source_builder.build_from_source(source_name, artist, song)
                     source.build_url()
                     lyrics = source.get_lyrics()
-                    source_found = True
+                    source_found = source_name
                     break
                 except:
-                    print source_name, "failed"
+                    self.append_to_result('\n' + source_name + " failed")
 
             if source_found:
                 self.run_lyric_window(lyrics, artist, song)
+                self.append_to_result('\n\n' + source_found + ' found it!' + '\n-----------------------')
+            else:
+                self.append_to_result('\n\nFailed to find song\n-----------------------')
 
     def run_lyric_window(self, lyrics, artist, song):
         text_buffer = gtk.TextBuffer()
