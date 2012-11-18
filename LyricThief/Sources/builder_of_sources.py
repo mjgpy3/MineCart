@@ -8,11 +8,12 @@
 from source_azlyrics import SourceAzlyrics
 from source_lyric_depot import SourceLyricDepot
 from source_lyrics_mania import SourceLyricsMania
+from source_mp3_lyrics import SourceMp3lyrics
 
 class BuilderOfSources:
     def __init__(self):
         self.sources = {'azlyrics': SourceAzlyrics, 'lyricdepot': SourceLyricDepot,
-                        'lyricsmania': SourceLyricsMania}
+                        'lyricsmania': SourceLyricsMania, 'mp3lyrics': SourceMp3lyrics}
 
     def get_names(self):
         return list(self.sources)
