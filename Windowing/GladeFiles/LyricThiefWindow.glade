@@ -62,8 +62,8 @@
               </packing>
             </child>
             <child>
-              <widget class="GtkButton" id="btnSave">
-                <property name="label" translatable="yes">Save</property>
+              <widget class="GtkButton" id="btnExit">
+                <property name="label" translatable="yes">Exit</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>

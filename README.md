@@ -28,3 +28,12 @@ TODO:
  - After batch job is added, add miner for lists of songs per album
 
 <hr>
+
+Intended Tools:
+ - Programming Language popularity tool:
+   - TIOBE Index
+   - Google hits
+   - StackOverflow Tags
+   - Wikipedia - List, Other info...
+ - Project Euler problem snatcher
+

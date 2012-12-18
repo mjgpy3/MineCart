@@ -20,6 +20,7 @@ class LyricWindow(GladeWindow):
         self.tvi_lyrics = self.w_tree.get_widget('tviLyrics')
         self.window = self.connect_widget_by_name('wdwMain', 'destroy', lambda x: gtk.main_quit())
         self.window.set_title(self.title)
+        self.window.set_icon_from_file('Icons/LyricThiefIcon.png')
 
         menu_bar = self.w_tree.get_widget('menBar')
 
@@ -62,6 +63,7 @@ class LyricWindow(GladeWindow):
     def save_as(self, sender):
         chooser = gtk.FileChooserDialog(title='Save As...', action=gtk.FILE_CHOOSER_ACTION_SAVE,
                                         buttons=(gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_OPEN,gtk.RESPONSE_OK))
+        chooser.set_icon_from_file('Icons/LyricThiefIcon.png')
         chooser.set_current_name(self.title+'.txt')
         chooser.set_default_response(gtk.RESPONSE_OK)
         a_filter = gtk.FileFilter()

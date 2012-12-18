@@ -28,12 +28,13 @@ class LyricThiefWindow(GladeWindow):
 
         self.window = self.connect_widget_by_name('wdwMain', 'destroy', lambda x: gtk.main_quit())
         self.btn_get = self.connect_widget_by_name('btnGet', 'clicked', self.get_clicked)
-        self.btn_save = self.connect_widget_by_name('btnSave', 'clicked', self.save_clicked)
+        self.btn_exit = self.connect_widget_by_name('btnExit', 'clicked', lambda x: gtk.main_quit())
         self.ent_artist = self.w_tree.get_widget('entArtist')
         self.ent_song = self.w_tree.get_widget('entSong')
         self.cmb_source = self.connect_widget_by_name('cmbSource', 'changed', self.change_current_source)
         self.result_buffer = gtk.TextBuffer()
 
+        self.window.set_icon_from_file('Icons/LyricThiefIcon.png')
         self.cmb_source.set_active(0)
         self.w_tree.get_widget('txtResults').set_buffer(self.result_buffer)
         self.result_buffer.set_text('')
@@ -84,9 +85,6 @@ class LyricThiefWindow(GladeWindow):
         gtk.main()
         self.window.show()
         
-    def save_clicked(self, sender):
-        print "Clicked save"
-
     def fields_empty(self):
         return self.ent_artist.get_text() == '' and self.ent_song.get_text() == ''
 
