@@ -1,0 +1,6 @@
+import re
+import urllib2
+
+reader = urllib2.urlopen('http://distrowatch.com/')
+
+re.findall('phr2\"><a href=\".+\">(.+)</a>', reader.read())
