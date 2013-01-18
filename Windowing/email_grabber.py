@@ -13,6 +13,7 @@ class EmailGrabberWindow(GladeWindow):
         GladeWindow.__init__(self, './GladeFiles/EmailGrabber.glade')
         
         self.window = self.connect_widget_by_name('wdwMain', 'destroy', lambda x: gtk.main_quit())
+        self.connect_widget_by_name('btnQuit', 'clicked', lambda x: gtk.main_quit())
         self.window.set_title("Email Grabber")
         self.vbxFormats = self.w_tree.get_widget("vbxFormats")
 
