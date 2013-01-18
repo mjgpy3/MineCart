@@ -14,9 +14,21 @@ class EmailFileWriter:
 
 class CsvWriter(EmailFileWriter):
     def __init__(self):
-        EmailFileWriter.__init__(self, "CSV")
+        EmailFileWriter.__init__(self, ".csv")
 
     def write(self, emails, output_file_name):
-        with open(output_file_name, 'w') as f:
+        with open(output_file_name + self.output_name, 'w') as f:
             for email in emails:
                 f.write(email + ',\n')
+
+class PlainTextWriter(EmailFileWriter):
+    def __init__(self):
+        EmailFileWriter.__init__(self, ".txt")
+
+    def write(self, emails, output_file_name):
+        with open(output_file_name + self.output_name, 'w') as f:
+            for email in emails:
+                f.write(email + '\n')
+        
+
+available_writers = {"CSV": CsvWriter, "Plaintext": PlainTextWriter}
