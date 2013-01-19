@@ -30,5 +30,4 @@ class PlainTextWriter(EmailFileWriter):
             for email in emails:
                 f.write(email + '\n')
         
-
 available_writers = {"CSV": CsvWriter, "Plaintext": PlainTextWriter}
