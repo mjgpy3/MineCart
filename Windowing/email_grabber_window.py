@@ -16,7 +16,7 @@ from email_writer import available_writers
 
 class EmailGrabberWindow(GladeWindow):
     def __init__(self):
-        GladeWindow.__init__(self, './GladeFiles/EmailGrabber.glade')
+        GladeWindow.__init__(self, './GladeFiles/EmailGrabberWindow.glade')
         
         self.window = self.connect_widget_by_name('wdwMain', 'destroy', lambda x: gtk.main_quit())
         self.connect_widget_by_name('btnQuit', 'clicked', lambda x: gtk.main_quit())

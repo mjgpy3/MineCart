@@ -80,14 +80,14 @@ def btd(item):
     return '<td><b>' + item + '</b></td>'  
 
 def get_html():
-    return '<table\n>' +\
+    return '<table>\n' +\
     get_row('Distro Name', get_distro()) +\
     get_row('Kernel', find_kernel()) +\
     get_row('Package Managers', ', '.join(find_key(packmans))) +\
     get_row('Languages/Compliers', ', '.join(find_key(languages))) +\
     get_row('Web Broswer(s)', ', '.join(find_key(browsers))) +\
     get_row('Has sudo', has_command('sudo')) +\
-    '</table\n>'
+    '</table>\n'
 
 if __name__ == '__main__':
    distro = get_distro()
