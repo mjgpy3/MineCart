@@ -14,7 +14,8 @@ packmans = {'Aptitude': 'which aptitude',
             'RPM': 'which rpm',
             'Synaptic': 'which synaptic',
             'Pacman': 'which pacman',
-            'Dpkg': 'which dpkg'}
+            'Dpkg': 'which dpkg',
+            'Yast': 'which yast'}
 
 browsers = {'Firefox': 'which firefox',
             'Chromium': 'which chromium-browser',
