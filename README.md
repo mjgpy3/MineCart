@@ -29,7 +29,6 @@ TODO:
  - Add batch job ability
  - After batch job is added, add miner for lists of songs per album
 
-<hr>
 
 EmailGrabber
 ----------
@@ -47,7 +46,6 @@ To run:
  - Navigate to `/MineCart/Windowing/`
  - Run the file `email_grabber_window.py`
 
-<hr>
 
 LinuxInfoGrabber
 ----------
@@ -63,7 +61,7 @@ To run:
  - Navigate to `/MineCart/Windowing/`
  - Run the file `linux_info_grabber_window.py`
 
-<hr>
+----------
 
 Intended Tools:
  - Programming Language popularity tool:
