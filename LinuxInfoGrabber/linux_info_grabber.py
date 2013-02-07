@@ -7,6 +7,9 @@
 
 from os import system, popen
 
+"""
+    A dict of available package managers {key: value} = {Manager name: command to find}
+"""
 packmans = {'Aptitude': 'which aptitude',
             'apt-get': 'which apt-get',
             'YUM': 'which yum',
@@ -17,6 +20,9 @@ packmans = {'Aptitude': 'which aptitude',
             'Dpkg': 'which dpkg',
             'Yast': 'which yast'}
 
+"""
+    A dict of browsers on the OS {key: value} = {Browser name: command to find}
+"""
 browsers = {'Firefox': 'which firefox',
             'Chromium': 'which chromium-browser',
             'Lynx': 'which lynx', 
