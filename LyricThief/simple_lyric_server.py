@@ -9,6 +9,9 @@ import sys
 sys.path.append('./Sources')
 sys.path.append('./Helpers')
 
+import socket
+import json
+
 from builder_of_sources import BuilderOfSources
 
 class LyricServer(object):
@@ -17,6 +20,8 @@ class LyricServer(object):
         self.artist = None
         self.song = None
         self.lyrics = None
+        self._socket = socket.socket()
+        self._n_requests = None
 
     def try_get_lyrics(self):
         """
@@ -31,6 +36,37 @@ class LyricServer(object):
                 break
             except:
                 pass
+
+    def define_socket(self, port, n_requests=5):
+        """
+            Used to define the socket object from inputs
+        """
+        host = socket.gethostname()
+        self._socket.bind((host, port))
+        self._n_requests = n_requests
+
+    def handle_lyric_requests(self):
+        self._socket.listen(self._n_requests)
+
+        while True:
+            client, address = self._socket.accept()
+            print "Lyric Thief Server: Connected to %s" % address
+
+            self.lyrics = ''
+            data = json.loads(client.recv(1024))
+            try:
+                self.artist, self.song = data['artist'], data['song']
+            except KeyError:
+                client.send("Invalid JSON passed")
+                print "Lyric Thief Server: Invalid JSON Passed"
+                client.close()
+                return
+                
+            self.try_get_lyrics()
+            client.send(self.lyrics)
+            print "Lyric Thief Server: Sent Lyrics, Closing Connection"
+            client.close()
+       
 
 test = True
 
