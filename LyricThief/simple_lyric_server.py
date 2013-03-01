@@ -14,21 +14,34 @@ from builder_of_sources import BuilderOfSources
 class LyricServer(object):
     def __init__(self):
         self.source_builder = BuilderOfSources()
-        self.result
+        self.artist = None
+        self.song = None
+        self.lyrics = None
 
     def try_get_lyrics(self):
-        source_names = self.source_builder.get_names() if self.current_source==None else [self.current_source]
+        """
+            Tries to get the lyrics of the current object's artist and song
+        """
+        source_names = self.source_builder.get_names()
         for source_name in source_names:
             try:
-                source = self.source_builder.build_from_source(source_name, artist, song)
+                source = self.source_builder.build_from_source(source_name, self.artist, self.song)
                 source.build_url()
-                lyrics = source.get_lyrics()
-                source_found = source_name
+                self.lyrics = source.get_lyrics()
                 break
             except:
-                self.append_to_result('\n' + source_name + " failed")
+                pass
 
-    def append_to_result(self, text):
-        self.result_buffer.insert(self.result_buffer.get_end_iter(), text)
+test = True
 
+if __name__ == '__main__' and test:
+    a = LyricServer()
+    a.artist = "Counting Crows"
+    a.song = "Omaha"
 
+    a.try_get_lyrics()
+
+    print a.lyrics
+
+elif __name__ == '__main__':
+    pass # The main function will go here
