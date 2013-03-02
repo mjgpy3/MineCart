@@ -42,6 +42,7 @@ class LyricServer(object):
             Used to define the socket object from inputs
         """
         host = socket.gethostname()
+        print "Lyric Thief Server: Hostname is %s" % str(host)
         self._socket.bind((host, port))
         self._n_requests = n_requests
 
