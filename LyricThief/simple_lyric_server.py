@@ -50,7 +50,7 @@ class LyricServer(object):
 
         while True:
             client, address = self._socket.accept()
-            print "Lyric Thief Server: Connected to %s" % address
+            print "Lyric Thief Server: Connected to %s" % str(address)
 
             self.lyrics = ''
             data = json.loads(client.recv(1024))
@@ -68,7 +68,7 @@ class LyricServer(object):
             client.close()
        
 
-test = True
+test = False
 
 if __name__ == '__main__' and test:
     a = LyricServer()
@@ -80,4 +80,6 @@ if __name__ == '__main__' and test:
     print a.lyrics
 
 elif __name__ == '__main__':
-    pass # The main function will go here
+    server = LyricServer()
+    server.define_socket(915, 5)
+    server.handle_lyric_requests()
