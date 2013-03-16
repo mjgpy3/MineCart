@@ -86,19 +86,13 @@ class LyricServer(object):
             print "Lyric Thief Server: Sent Lyrics, Closing Connection"
             client.close()
        
-
-test = False
-
-if __name__ == '__main__' and test:
-    a_lyric_server = LyricServer()
-    a_lyric_server.artist = "Counting Crows"
-    a_lyric_server.song = "Omaha"
-
-    a_lyric_server.try_get_lyrics()
-
-    print a_lyric_server.lyrics
-
-elif __name__ == '__main__':
+def main():
+    """
+        Runs the server.
+    """
     server = LyricServer()
     server.define_socket(915, 5)
     server.handle_lyric_requests()
+
+if __name__ == '__main__':
+    main()
