@@ -5,11 +5,21 @@
 # 
 # 
 
+"""
+    Contains a (static) class with HTML methods.
+"""
+
 import re
 
 class HtmlHelper:
+    """
+        Contains static HTML helper methods
+    """
     @classmethod
     def breaks_to_nl(cls, htmlish_code):
-        r = re.compile('<br\s*/*>')
-        return re.sub(r, '\n', htmlish_code)
+        """
+            Replaces all breaks with newlines in passed HTML code. 
+        """
+        regex = re.compile('<br\s*/*>')
+        return re.sub(regex, '\n', htmlish_code)
 
