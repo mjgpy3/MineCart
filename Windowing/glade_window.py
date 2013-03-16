@@ -6,9 +6,9 @@
 #
 
 """
-In charge of handling those features that will probably be present in all views that are
-derived from Glade. Adding this slight bit of complexity should greatly reduce overall view
-complexity.
+In charge of handling those features that will probably be present in all views
+ that are derived from Glade. Adding this slight bit of complexity should
+greatly reduce overall view complexity.
 """
 
 import pygtk
