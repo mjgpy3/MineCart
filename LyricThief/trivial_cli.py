@@ -5,6 +5,10 @@
 # 
 # 
 
+"""
+    A very simplistic command line interface. Serves as a use-case.
+"""
+
 import sys
 
 sys.path.append('./Sources')
@@ -18,7 +22,8 @@ song = raw_input('Song Name: ')
 a = SourceLyricDepot(artist, song)
 a.build_url()
 lyrics = a.get_lyrics()
-potential_file_name = artist.replace(' ', '_') + '-' + song.replace(' ', '_') + '.txt'
+potential_file_name = artist.replace(' ', '_') +\
+                      '-' + song.replace(' ', '_') + '.txt'
 
 print lyrics
 

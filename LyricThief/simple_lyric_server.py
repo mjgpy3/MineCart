@@ -5,6 +5,11 @@
 # 
 #
 
+"""
+    A simple implementation of a LyricServer. See below __main__ methods for
+    use cases.
+"""
+
 import sys
 sys.path.append('./Sources')
 sys.path.append('./Helpers')
@@ -15,6 +20,9 @@ import json
 from builder_of_sources import BuilderOfSources
 
 class LyricServer(object):
+    """
+        A simple lyric server that uses sockets and accepts JSON requests.
+    """
     def __init__(self):
         self.source_builder = BuilderOfSources()
         self.artist = None
@@ -30,7 +38,9 @@ class LyricServer(object):
         source_names = self.source_builder.get_names()
         for source_name in source_names:
             try:
-                source = self.source_builder.build_from_source(source_name, self.artist, self.song)
+                source = self.source_builder.build_from_source(source_name,
+                                                               self.artist,
+                                                               self.song)
                 source.build_url()
                 self.lyrics = source.get_lyrics()
                 break
@@ -47,6 +57,9 @@ class LyricServer(object):
         self._n_requests = n_requests
 
     def handle_lyric_requests(self):
+        """
+            Starts the server up. Loops and fulfills requests.
+        """
         self._socket.listen(self._n_requests)
 
         while True:
@@ -77,13 +90,13 @@ class LyricServer(object):
 test = False
 
 if __name__ == '__main__' and test:
-    a = LyricServer()
-    a.artist = "Counting Crows"
-    a.song = "Omaha"
+    a_lyric_server = LyricServer()
+    a_lyric_server.artist = "Counting Crows"
+    a_lyric_server.song = "Omaha"
 
-    a.try_get_lyrics()
+    a_lyric_server.try_get_lyrics()
 
-    print a.lyrics
+    print a_lyric_server.lyrics
 
 elif __name__ == '__main__':
     server = LyricServer()
