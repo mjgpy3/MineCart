@@ -5,6 +5,10 @@
 # 
 # 
 
+"""
+    Contains a GladWindow that displays the lyrics that are passed to it.
+"""
+
 import pygtk
 pygtk.require('2.0')
 import gtk
@@ -12,13 +16,18 @@ import gtk
 from glade_window import GladeWindow
 
 class LyricWindow(GladeWindow):
+    """
+        Displays the lyrics that are passed to it
+    """
     def __init__(self, title): 
         GladeWindow.__init__(self, './GladeFiles/LyricWindow.glade')
         self.output_file = None
         self.title = title
     
         self.tvi_lyrics = self.w_tree.get_widget('tviLyrics')
-        self.window = self.connect_widget_by_name('wdwMain', 'destroy', lambda x: gtk.main_quit())
+        self.window = self.connect_widget_by_name('wdwMain',
+                                                  'destroy',
+                                                  lambda x: gtk.main_quit())
         self.window.set_title(self.title)
         self.window.set_icon_from_file('Icons/LyricThiefIcon.png')
 
@@ -42,6 +51,9 @@ class LyricWindow(GladeWindow):
         self.window.show()
 
     def file_activated(self, sender, name):
+        """
+            Called when a file option is selected. Switches them.
+        """
         if name == '_Exit':
             gtk.main_quit()
             self.window.hide()
@@ -53,16 +65,29 @@ class LyricWindow(GladeWindow):
             self.save_as(sender)
 
     def save_existing(self, sender):
+        """
+            Saves a file that has already been selected through the "save as"
+            menu.
+        """
+        print "Save Existing called with", str(sender)
         txt_buffer = self.tvi_lyrics.get_buffer()
         start = txt_buffer.get_start_iter()
         end = txt_buffer.get_end_iter()
 
-        with open(self.output_file, 'w') as f:
-            f.write(txt_buffer.get_text(start, end))
+        with open(self.output_file, 'w') as file_stream:
+            file_stream.write(txt_buffer.get_text(start, end))
 
     def save_as(self, sender):
-        chooser = gtk.FileChooserDialog(title='Save As...', action=gtk.FILE_CHOOSER_ACTION_SAVE,
-                                        buttons=(gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_OPEN,gtk.RESPONSE_OK))
+        """
+            Saves the lyrics in the file selected
+        """
+        print "Save as called with", str(sender)
+        chooser = gtk.FileChooserDialog(title='Save As...',
+                                        action=gtk.FILE_CHOOSER_ACTION_SAVE,
+                                        buttons=(gtk.STOCK_CANCEL,
+                                                 gtk.RESPONSE_CANCEL,
+                                                 gtk.STOCK_OPEN,
+                                                 gtk.RESPONSE_OK))
         chooser.set_icon_from_file('Icons/LyricThiefIcon.png')
         chooser.set_current_name(self.title+'.txt')
         chooser.set_default_response(gtk.RESPONSE_OK)
