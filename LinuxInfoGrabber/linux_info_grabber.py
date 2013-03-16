@@ -5,12 +5,13 @@
 # 
 # 
 
+"""
+    Returns HTML code of various Linux System details.
+"""
+
 from os import system, popen
 
-"""
-    A dict of available package managers {key: value} = {Manager name: command to find}
-"""
-packmans = {'Aptitude': 'which aptitude',
+PACKMANS = {'Aptitude': 'which aptitude',
             'apt-get': 'which apt-get',
             'YUM': 'which yum',
             'Zypper': 'which zypper',
@@ -20,10 +21,7 @@ packmans = {'Aptitude': 'which aptitude',
             'Dpkg': 'which dpkg',
             'Yast': 'which yast'}
 
-"""
-    A dict of browsers on the OS {key: value} = {Browser name: command to find}
-"""
-browsers = {'Firefox': 'which firefox',
+BROWSERS = {'Firefox': 'which firefox',
             'Chromium': 'which chromium-browser',
             'Lynx': 'which lynx', 
             'Amaya': 'which amaya',
@@ -36,7 +34,7 @@ browsers = {'Firefox': 'which firefox',
             'Dooble': 'which dooble',
             'SeaMonkey': 'which seamonkey'}
 
-languages = {'Python': 'which python',
+LANGUAGES = {'Python': 'which python',
              'Gcc (C)': 'which gcc',
              'C++': 'which c++',
              'C#': 'which csharp',
@@ -50,65 +48,108 @@ languages = {'Python': 'which python',
              'Fortran': 'which gfortran'}
 
 def find_key(name_command):
+    """
+        From a list of Name:command returns all names of commands that work.
+    """
     return [i for i in name_command if system(name_command[i]) == 0]
 
 def find_value(command):
+    """
+        Returns working commands outputs.
+    """
     return [popen(i).read() for i in command if system(i) == 0]
 
 def find_kernel():
+    """
+        Returns the kernel's info.
+    """
     return popen('uname -r').read().split('\n')[0]
 
 def get_distro():
+    """
+        Returns the distro's name
+    """
     try:
-        with open('/etc/issue', 'r') as f:
-          return f.read().split('\n')[0]
+        with open('/etc/issue', 'r') as fstream:
+            return fstream.read().split('\n')[0]
     except IOError:
-          pass
+        pass
 
 def has_command(command):
+    """
+        Checks to see if a command exists on a system
+    """
     return system('which ' + command) == 0
 
-def start_table(f):
-    f.write('<table>\n')
+def start_table(file_stream):
+    """
+        Writes the beginning of a HTML table
+    """
+    file_stream.write('<table>\n')
 
-def end_table(f):
-    f.write('</table>\n')
+def end_table(file_stream):
+    """
+        Writes the end of a HTML table
+    """
+    file_stream.write('</table>\n')
 
-def add_row(f, bold, details):
-    f.write('  <tr>' + btd(bold+':') + td(details) + '</tr>\n')
+def add_row(file_stream, bold, details):
+    """
+        Writes a table row given the passed details
+    """
+    file_stream.write('  <tr>' + btd(bold+':') + ntd(details) + '</tr>\n')
 
 def get_row(bold, details):
-    return '  <tr>' + btd(bold+':') + td(details) + '</tr>\n'
+    """
+        Returns the HTML code for a row with the passed details
+    """
+    return '  <tr>' + btd(bold+':') + ntd(details) + '</tr>\n'
 
-def td(item):
+def ntd(item):
+    """
+        Returns a normal table data cell
+    """
     return '<td>' + str(item) + '</td>'
 
 def btd(item):
+    """
+        Returns a bold table data cell
+    """
     return '<td><b>' + item + '</b></td>'  
 
 def get_html():
+    """
+        Returns the HTML information about the Linux system
+    """
     return '<table>\n' +\
     get_row('Distro Name', get_distro()) +\
     get_row('Kernel', find_kernel()) +\
-    get_row('Package Managers', ', '.join(find_key(packmans))) +\
-    get_row('Languages/Compliers', ', '.join(find_key(languages))) +\
-    get_row('Web Broswer(s)', ', '.join(find_key(browsers))) +\
+    get_row('Package Managers', ', '.join(find_key(PACKMANS))) +\
+    get_row('Languages/Compliers', ', '.join(find_key(LANGUAGES))) +\
+    get_row('Web Broswer(s)', ', '.join(find_key(BROWSERS))) +\
     get_row('Has sudo', has_command('sudo')) +\
     '</table>\n'
 
+def main():
+    """
+        Writes a HTML file of the System's info
+    """
+    distro = get_distro()
+
+    file_stream = open(distro.replace(' ', '_').replace('\\', '') +\
+                                                        '.html', 'w')
+
+    start_table(file_stream)
+
+    add_row(file_stream, 'Distro Name', distro)
+    add_row(file_stream, 'Kernel', find_kernel())
+    add_row(file_stream, 'Package Managers', ', '.join(find_key(PACKMANS)))
+    add_row(file_stream, 'Languages/Compliers', ', '.join(find_key(LANGUAGES)))
+    add_row(file_stream, 'Web Broswer(s)', ', '.join(find_key(BROWSERS)))
+    add_row(file_stream, 'Has sudo', has_command('sudo'))
+
+    end_table(file_stream)
+
+
 if __name__ == '__main__':
-   distro = get_distro()
-
-   f = open(distro.replace(' ', '_').replace('\\', '') + '.html', 'w')
-
-   start_table(f)
-
-   add_row(f, 'Distro Name', distro)
-   add_row(f, 'Kernel', find_kernel())
-   add_row(f, 'Package Managers', ', '.join(find_key(packmans)))
-   add_row(f, 'Languages/Compliers', ', '.join(find_key(languages)))
-   add_row(f, 'Web Broswer(s)', ', '.join(find_key(browsers)))
-   add_row(f, 'Has sudo', has_command('sudo'))
-
-   end_table(f)
-
+    main()
